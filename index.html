@@ -967,13 +967,13 @@ function esc(str) {
 function parseCSV(csv) {
   const lines = csv.trim().split('\n');
   return lines.slice(1).map(line => {
-    const parts = line.split('\t');
+    const parts = line.split(',');
     const area     = (parts[0] || '').trim();
     const category = (parts[1] || '').trim();
     const name     = (parts[2] || '').trim();
     const branch   = (parts[3] || '').trim();
-    const lat      = parseFloat(parts[5]) || null;
-    const lng      = parseFloat(parts[6]) || null;
+    const lat      = parseFloat(parts[4]) || null;
+    const lng      = parseFloat(parts[5]) || null;
     return { area, category, name, branch, lat, lng };
   }).filter(s => s.name);
 }
