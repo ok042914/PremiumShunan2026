@@ -66,7 +66,7 @@
     input[type="search"] {
       width: 100%;
       height: 44px;
-      padding: 0 12px 0 40px;
+      padding: 0 36px 0 40px;
       border: 1.5px solid #E2E8F0;
       border-radius: 12px;
       font-size: 15px;
@@ -76,6 +76,28 @@
       color: #1A202C;
     }
     input[type="search"]:focus { border-color: var(--main); background: #fff; }
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: #CBD5E0;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      line-height: 1;
+      padding: 0;
+    }
+    .clear-btn.visible { display: flex; }
 
     .filter-row { display: flex; gap: 8px; }
     .select-wrap {
@@ -146,26 +168,31 @@
     }
     .badge-area { background: #FFE5E5; color: #C53030; }
 
-    .near-btn {
-      width: 100%;
-      height: 40px;
+    .sort-group {
+      display: flex;
       margin-top: 8px;
       border: 1.5px solid #E2E8F0;
       border-radius: 12px;
+      overflow: hidden;
+    }
+    .sort-btn {
+      flex: 1;
+      height: 40px;
+      border: none;
       background: #F7F8FA;
       color: #4A5568;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      transition: background 0.15s, color 0.15s;
     }
-    .near-btn.active {
+    .sort-btn:first-child { border-right: 1.5px solid #E2E8F0; }
+    .sort-btn.active {
       background: #FFE5E5;
       color: #C53030;
-      border-color: #FEB2B2;
     }
-    .near-btn:disabled { opacity: 0.6; }
+    .sort-btn:disabled { opacity: 0.6; }
 
     .badge-dist { background: #E8EAF6; color: #283593; }
 
@@ -203,6 +230,7 @@
       <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/>
     </svg>
     <input type="search" id="keyword" placeholder="ショップ名・支店名で検索" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button class="clear-btn" id="clearBtn" aria-label="クリア">✕</button>
   </div>
   <div class="filter-row">
     <div class="select-wrap">
@@ -212,7 +240,10 @@
       <select id="categoryFilter"><option value="">すべての業態</option></select>
     </div>
   </div>
-  <button id="nearBtn" class="near-btn">現在地から近い順に表示</button>
+  <div class="sort-group">
+    <button id="btnNear" class="sort-btn active">近い順</button>
+    <button id="btnList" class="sort-btn">名簿順</button>
+  </div>
 </div>
 
 <div class="summary-bar">
@@ -223,7 +254,7 @@
 
 <div class="cards" id="cardList"></div>
 
-<footer>v1.3.0 &nbsp;/&nbsp; 2026-06-05</footer>
+<footer>v1.4.0 &nbsp;/&nbsp; 2026-06-05</footer>
 
 <script>
 
@@ -254,7 +285,7 @@ function haversine(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.asin(Math.sqrt(a));
 }
 
-let userLat = null, userLng = null, sortByDistance = false;
+let userLat = null, userLng = null, sortByDistance = true;
 let allShops = [];
 
 function filterShops(shops, keyword, area, category) {
@@ -321,40 +352,60 @@ function setStickyOffsets() {
   summaryBar.style.top = (h0 + h1 + h2) + 'px';
 }
 
-const nearBtn = document.getElementById('nearBtn');
-nearBtn.addEventListener('click', () => {
-  if (sortByDistance) {
-    sortByDistance = false;
-    userLat = null;
-    userLng = null;
-    nearBtn.classList.remove('active');
-    nearBtn.textContent = '現在地から近い順に表示';
-    update();
-    return;
-  }
+const btnNear = document.getElementById('btnNear');
+const btnList = document.getElementById('btnList');
+
+function activateNear() {
   if (!navigator.geolocation) {
     alert('この端末では現在地の取得ができません');
+    activateList();
     return;
   }
-  nearBtn.textContent = '現在地を取得中...';
-  nearBtn.disabled = true;
+  btnNear.disabled = true;
+  btnList.disabled = true;
   navigator.geolocation.getCurrentPosition(
     pos => {
       userLat = pos.coords.latitude;
       userLng = pos.coords.longitude;
       sortByDistance = true;
-      nearBtn.classList.add('active');
-      nearBtn.textContent = '現在地から近い順（解除）';
-      nearBtn.disabled = false;
+      btnNear.classList.add('active');
+      btnList.classList.remove('active');
+      btnNear.disabled = false;
+      btnList.disabled = false;
       update();
     },
     () => {
-      nearBtn.textContent = '現在地から近い順に表示';
-      nearBtn.disabled = false;
+      btnNear.disabled = false;
+      btnList.disabled = false;
       alert('現在地の取得に失敗しました');
+      activateList();
     },
     { timeout: 10000 }
   );
+}
+
+function activateList() {
+  sortByDistance = false;
+  userLat = null;
+  userLng = null;
+  btnList.classList.add('active');
+  btnNear.classList.remove('active');
+  update();
+}
+
+btnNear.addEventListener('click', activateNear);
+btnList.addEventListener('click', activateList);
+
+const clearBtn = document.getElementById('clearBtn');
+const keywordInput = document.getElementById('keyword');
+keywordInput.addEventListener('input', () => {
+  clearBtn.classList.toggle('visible', keywordInput.value.length > 0);
+});
+clearBtn.addEventListener('click', () => {
+  keywordInput.value = '';
+  clearBtn.classList.remove('visible');
+  keywordInput.focus();
+  update();
 });
 
 (async () => {
@@ -398,9 +449,9 @@ nearBtn.addEventListener('click', () => {
   document.getElementById('areaFilter').addEventListener('change', update);
   document.getElementById('categoryFilter').addEventListener('change', update);
 
-  update();
   setStickyOffsets();
   window.addEventListener('resize', setStickyOffsets);
+  activateNear();
 })();
 </script>
 </body>
