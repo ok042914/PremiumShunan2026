@@ -145,6 +145,29 @@
     }
     .badge-area { background: #FFE5E5; color: #C53030; }
 
+    .near-btn {
+      width: 100%;
+      height: 40px;
+      margin-top: 8px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 12px;
+      background: #F7F8FA;
+      color: #4A5568;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .near-btn.active {
+      background: #FFE5E5;
+      color: #C53030;
+      border-color: #FEB2B2;
+    }
+    .near-btn:disabled { opacity: 0.6; }
+
+    .badge-dist { background: #E8EAF6; color: #283593; }
+
     .empty {
       text-align: center;
       padding: 56px 16px;
@@ -188,6 +211,7 @@
       <select id="categoryFilter"><option value="">すべての業態</option></select>
     </div>
   </div>
+  <button id="nearBtn" class="near-btn">現在地から近い順に表示</button>
 </div>
 
 <div class="summary-bar">
@@ -198,7 +222,7 @@
 
 <div class="cards" id="cardList"></div>
 
-<footer>v1.1.3 &nbsp;/&nbsp; 2026-05-27</footer>
+<footer>v1.2.0 &nbsp;/&nbsp; 2026-06-05</footer>
 
 <script>
 const CSV_DATA = `地区,業態,ショップ名,支店名
@@ -943,25 +967,44 @@ function esc(str) {
 function parseCSV(csv) {
   const lines = csv.trim().split('\n');
   return lines.slice(1).map(line => {
-    const parts = line.split(',');
+    const parts = line.split('\t');
     const area     = (parts[0] || '').trim();
     const category = (parts[1] || '').trim();
     const name     = (parts[2] || '').trim();
-    const branch   = parts.slice(3).join(',').trim();
-    return { area, category, name, branch };
+    const branch   = (parts[3] || '').trim();
+    const lat      = parseFloat(parts[5]) || null;
+    const lng      = parseFloat(parts[6]) || null;
+    return { area, category, name, branch, lat, lng };
   }).filter(s => s.name);
 }
 
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.asin(Math.sqrt(a));
+}
+
+let userLat = null, userLng = null, sortByDistance = false;
+
 function filterShops(shops, keyword, area, category) {
   const kw = keyword.trim().toLowerCase();
-  return shops.filter(s => {
+  let result = shops.filter(s => {
     if (area     && s.area     !== area)     return false;
     if (category && s.category !== category) return false;
-    if (kw) {
-      return (s.name + s.branch).toLowerCase().includes(kw);
-    }
+    if (kw) return (s.name + s.branch).toLowerCase().includes(kw);
     return true;
   });
+
+  if (sortByDistance && userLat !== null) {
+    result = result.map(s => ({
+      ...s,
+      dist: (s.lat && s.lng) ? haversine(userLat, userLng, s.lat, s.lng) : Infinity
+    })).sort((a, b) => a.dist - b.dist);
+  }
+  return result;
 }
 
 function renderCards(shops) {
@@ -977,12 +1020,15 @@ function renderCards(shops) {
     const cat = CATEGORY_COLORS[s.category] || CATEGORY_COLORS['その他'];
     const catBadge  = `<span class="badge" style="background:${cat.bg};color:${cat.color}">${esc(s.category)}</span>`;
     const areaBadge = `<span class="badge badge-area">${esc(s.area)}</span>`;
-    const branchHtml = s.branch
-      ? ` <span class="card-branch">${esc(s.branch)}</span>`
-      : '';
+    const branchHtml = s.branch ? ` <span class="card-branch">${esc(s.branch)}</span>` : '';
+    let distHtml = '';
+    if (sortByDistance && s.dist != null && s.dist !== Infinity) {
+      const d = s.dist < 1 ? Math.round(s.dist * 1000) + 'm' : s.dist.toFixed(1) + 'km';
+      distHtml = `<span class="badge badge-dist">${d}</span>`;
+    }
     return `<div class="card">
   <div class="card-name">${esc(s.name)}${branchHtml}</div>
-  <div class="card-badges">${areaBadge}${catBadge}</div>
+  <div class="card-badges">${distHtml}${areaBadge}${catBadge}</div>
 </div>`;
   }).join('');
 }
@@ -1014,6 +1060,42 @@ function update() {
 document.getElementById('keyword').addEventListener('input', update);
 document.getElementById('areaFilter').addEventListener('change', update);
 document.getElementById('categoryFilter').addEventListener('change', update);
+
+const nearBtn = document.getElementById('nearBtn');
+nearBtn.addEventListener('click', () => {
+  if (sortByDistance) {
+    sortByDistance = false;
+    userLat = null;
+    userLng = null;
+    nearBtn.classList.remove('active');
+    nearBtn.textContent = '現在地から近い順に表示';
+    update();
+    return;
+  }
+  if (!navigator.geolocation) {
+    alert('この端末では現在地の取得ができません');
+    return;
+  }
+  nearBtn.textContent = '現在地を取得中...';
+  nearBtn.disabled = true;
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLat = pos.coords.latitude;
+      userLng = pos.coords.longitude;
+      sortByDistance = true;
+      nearBtn.classList.add('active');
+      nearBtn.textContent = '現在地から近い順（解除）';
+      nearBtn.disabled = false;
+      update();
+    },
+    () => {
+      nearBtn.textContent = '現在地から近い順に表示';
+      nearBtn.disabled = false;
+      alert('現在地の取得に失敗しました');
+    },
+    { timeout: 10000 }
+  );
+});
 
 update();
 
