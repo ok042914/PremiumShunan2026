@@ -15,6 +15,7 @@
       min-height: 100vh;
     }
 
+    /* ===== ヘッダー ===== */
     header {
       background: var(--main);
       color: #fff;
@@ -41,7 +42,6 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
       flex-shrink: 0;
       position: relative;
     }
@@ -50,15 +50,14 @@
     .header-btn.has-filter::after {
       content: '';
       position: absolute;
-      top: 5px;
-      right: 5px;
-      width: 8px;
-      height: 8px;
+      top: 5px; right: 5px;
+      width: 8px; height: 8px;
       background: #FFE082;
       border-radius: 50%;
       border: 1.5px solid var(--main);
     }
 
+    /* ===== PDFリンク ===== */
     .pdf-link-bar {
       background: #FFF5F5;
       border-bottom: 1px solid #FED7D7;
@@ -68,16 +67,10 @@
       position: sticky;
       z-index: 9;
     }
-    .pdf-link-bar a {
-      color: #C53030;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .pdf-link-bar a::after {
-      content: ' ↗';
-      font-size: 10px;
-    }
+    .pdf-link-bar a { color: #C53030; text-decoration: none; font-weight: 600; }
+    .pdf-link-bar a::after { content: ' ↗'; font-size: 10px; }
 
+    /* ===== 検索エリア ===== */
     .search-area {
       background: #fff;
       position: sticky;
@@ -91,162 +84,186 @@
       border-bottom: 1px solid #E2E8F0;
     }
     .search-inner { padding: 10px 16px; }
-
     .search-input-wrap { position: relative; margin-bottom: 8px; }
     .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
+      position: absolute; left: 12px; top: 50%;
       transform: translateY(-50%);
-      color: #9CA3AF;
-      pointer-events: none;
+      color: #9CA3AF; pointer-events: none;
     }
     input[type="search"] {
-      width: 100%;
-      height: 44px;
+      width: 100%; height: 44px;
       padding: 0 36px 0 40px;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 12px;
-      font-size: 15px;
-      outline: none;
-      background: #F7F8FA;
-      -webkit-appearance: none;
-      color: #1A202C;
+      border: 1.5px solid #E2E8F0; border-radius: 12px;
+      font-size: 15px; outline: none;
+      background: #F7F8FA; -webkit-appearance: none; color: #1A202C;
     }
     input[type="search"]:focus { border-color: var(--main); background: #fff; }
     .clear-btn {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 22px;
-      height: 22px;
-      border: none;
-      background: #CBD5E0;
-      border-radius: 50%;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      -webkit-tap-highlight-color: transparent;
-      line-height: 1;
-      padding: 0;
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px; border: none;
+      background: #CBD5E0; border-radius: 50%;
+      color: #fff; font-size: 11px; font-weight: 700;
+      cursor: pointer; display: none;
+      align-items: center; justify-content: center; line-height: 1; padding: 0;
     }
     .clear-btn.visible { display: flex; }
-
     .filter-row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .select-wrap {
-      flex: 1;
-      position: relative;
-    }
+    .select-wrap { flex: 1; position: relative; }
     .select-wrap::after {
-      content: '';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 6px solid #9CA3AF;
-      pointer-events: none;
+      content: ''; position: absolute;
+      right: 10px; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid #9CA3AF; pointer-events: none;
     }
     select {
-      width: 100%;
-      height: 40px;
-      padding: 0 28px 0 10px;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 12px;
-      font-size: 13px;
-      background: #F7F8FA;
-      color: #1A202C;
-      outline: none;
-      -webkit-appearance: none;
-      appearance: none;
+      width: 100%; height: 40px; padding: 0 28px 0 10px;
+      border: 1.5px solid #E2E8F0; border-radius: 12px;
+      font-size: 13px; background: #F7F8FA; color: #1A202C;
+      outline: none; -webkit-appearance: none; appearance: none;
     }
     select:focus { border-color: var(--main); background: #fff; }
-
     .sort-group {
-      display: flex;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 12px;
-      overflow: hidden;
+      display: flex; border: 1.5px solid #E2E8F0;
+      border-radius: 12px; overflow: hidden;
     }
     .sort-btn {
-      flex: 1;
-      height: 38px;
-      border: none;
-      background: #F7F8FA;
-      color: #4A5568;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+      flex: 1; height: 38px; border: none;
+      background: #F7F8FA; color: #4A5568;
+      font-size: 13px; font-weight: 600; cursor: pointer;
       transition: background 0.15s, color 0.15s;
     }
     .sort-btn:first-child { border-right: 1.5px solid #E2E8F0; }
-    .sort-btn.active {
-      background: #FFE5E5;
-      color: #C53030;
-    }
+    .sort-btn.active { background: #FFE5E5; color: #C53030; }
     .sort-btn:disabled { opacity: 0.6; }
 
-    .badge-dist { background: #E8EAF6; color: #283593; }
-
+    /* ===== サマリーバー ===== */
     .summary-bar {
       padding: 7px 16px;
-      background: #fff;
-      border-bottom: 1px solid #E2E8F0;
-      display: flex;
-      align-items: baseline;
-      gap: 6px;
-      font-size: 13px;
-      color: #6B7280;
-      position: sticky;
-      z-index: 7;
+      background: #fff; border-bottom: 1px solid #E2E8F0;
+      display: flex; align-items: baseline; gap: 6px;
+      font-size: 13px; color: #6B7280;
+      position: sticky; z-index: 7;
     }
     .summary-bar .count { color: var(--main); font-size: 20px; font-weight: 700; line-height: 1; }
-    .summary-bar .unit { color: var(--main); font-size: 14px; font-weight: 600; }
+    .summary-bar .unit  { color: var(--main); font-size: 14px; font-weight: 600; }
 
+    /* ===== カードリスト ===== */
     .cards { padding: 10px 16px 8px; display: flex; flex-direction: column; gap: 8px; }
-
     .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 11px 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      background: #fff; border-radius: 16px;
+      padding: 11px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
     .card-name   { font-size: 16px; font-weight: 700; color: #1A202C; line-height: 1.35; }
     .card-branch { font-size: 15px; font-weight: 700; color: #4A5568; }
     .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; justify-content: flex-end; }
     .badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1.5;
+      display: inline-block; padding: 3px 8px;
+      border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 1.5;
     }
     .badge-area { background: #FFE5E5; color: #C53030; }
+    .badge-dist { background: #E8EAF6; color: #283593; }
+    .empty { text-align: center; padding: 56px 16px; color: #9CA3AF; font-size: 15px; }
 
-    .empty {
-      text-align: center;
-      padding: 56px 16px;
-      color: #9CA3AF;
-      font-size: 15px;
+    /* ===== 管理パネル ===== */
+    .admin-banner {
+      background: #1A202C; color: #FFE082;
+      text-align: center; padding: 8px 16px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
     }
+    .admin-exit-btn {
+      background: none; border: 1px solid #FFE082;
+      color: #FFE082; font-size: 11px; font-weight: 600;
+      border-radius: 6px; padding: 3px 10px; cursor: pointer;
+    }
+    .admin-toolbar {
+      padding: 10px 16px; background: #fff;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex; gap: 8px; align-items: center;
+    }
+    .admin-add-btn {
+      height: 40px; padding: 0 16px;
+      background: var(--main); color: #fff; border: none;
+      border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer;
+      flex-shrink: 0;
+    }
+    .admin-search {
+      flex: 1; height: 40px; padding: 0 12px;
+      border: 1.5px solid #E2E8F0; border-radius: 10px;
+      font-size: 14px; outline: none; color: #1A202C;
+    }
+    .admin-search:focus { border-color: var(--main); }
+    .admin-count { font-size: 13px; color: #6B7280; white-space: nowrap; }
+    .admin-table-wrap { overflow-x: auto; padding: 0 16px 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+    th {
+      background: #F7F8FA; padding: 8px 10px;
+      text-align: left; font-size: 11px; color: #6B7280;
+      border-bottom: 2px solid #E2E8F0; white-space: nowrap;
+    }
+    td { padding: 9px 10px; border-bottom: 1px solid #F0F2F5; vertical-align: middle; }
+    .td-name   { font-weight: 600; font-size: 13px; }
+    .td-branch { color: #6B7280; font-size: 11px; }
+    .td-loc    { font-size: 11px; color: #9CA3AF; }
+    .action-btn {
+      height: 30px; padding: 0 10px; border: none;
+      border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;
+    }
+    .edit-btn { background: #EBF4FF; color: #2B6CB0; margin-right: 4px; }
+    .del-btn  { background: #FFF5F5; color: #C53030; }
+    .admin-pager {
+      display: flex; justify-content: center; gap: 6px; padding: 14px 16px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      height: 34px; min-width: 34px; padding: 0 8px;
+      border: 1.5px solid #E2E8F0; border-radius: 8px;
+      background: #fff; font-size: 13px; font-weight: 600; cursor: pointer; color: #4A5568;
+    }
+    .page-btn.active { background: var(--main); color: #fff; border-color: var(--main); }
+
+    /* ===== モーダル共通 ===== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 200;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-box {
+      background: #fff; border-radius: 16px;
+      padding: 24px 20px; width: 100%; max-width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; color: #1A202C; }
+    .form-group { margin-bottom: 12px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: #6B7280; margin-bottom: 4px; }
+    .form-input {
+      width: 100%; height: 44px; padding: 0 12px;
+      border: 1.5px solid #E2E8F0; border-radius: 10px;
+      font-size: 15px; outline: none; color: #1A202C; background: #fff;
+    }
+    .form-input:focus { border-color: var(--main); }
+    .form-select {
+      width: 100%; height: 44px; padding: 0 12px;
+      border: 1.5px solid #E2E8F0; border-radius: 10px;
+      font-size: 15px; outline: none; color: #1A202C;
+      background: #fff; -webkit-appearance: none; appearance: none;
+    }
+    .form-select:focus { border-color: var(--main); }
+    .form-row { display: flex; gap: 8px; }
+    .form-row .form-group { flex: 1; min-width: 0; }
+    .modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+    .modal-btn { flex: 1; height: 46px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .btn-primary { background: var(--main); color: #fff; }
+    .btn-cancel  { background: #F0F2F5; color: #4A5568; }
+    .msg-error { color: #C53030; font-size: 12px; margin-top: 8px; display: none; }
+    .msg-info  { color: #6B7280; font-size: 12px; margin-top: 8px; }
 
     footer {
-      text-align: center;
-      padding: 18px 16px 24px;
-      font-size: 11px;
-      color: #9CA3AF;
-      border-top: 1px solid #E2E8F0;
-      margin-top: 8px;
+      text-align: center; padding: 18px 16px 24px;
+      font-size: 11px; color: #9CA3AF;
+      border-top: 1px solid #E2E8F0; margin-top: 8px;
     }
   </style>
 </head>
@@ -301,15 +318,103 @@
   </div>
 </div>
 
-<div class="summary-bar">
-  <span class="count" id="countDisplay">0</span>
-  <span class="unit">件</span>
-  <span id="totalDisplay"></span>
+<!-- 通常表示 -->
+<div id="normalView">
+  <div class="summary-bar" id="summaryBar">
+    <span class="count" id="countDisplay">0</span>
+    <span class="unit">件</span>
+    <span id="totalDisplay"></span>
+  </div>
+  <div class="cards" id="cardList"></div>
 </div>
 
-<div class="cards" id="cardList"></div>
+<!-- 管理パネル -->
+<div id="adminView" style="display:none">
+  <div class="admin-banner">
+    管理モード
+    <button class="admin-exit-btn" id="adminExitBtn">通常表示に戻る</button>
+  </div>
+  <div class="admin-toolbar">
+    <button class="admin-add-btn" id="adminAddBtn">+ 追加</button>
+    <input type="search" class="admin-search" id="adminSearch" placeholder="ID・店舗名で検索">
+    <span class="admin-count" id="adminCount"></span>
+  </div>
+  <div class="admin-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>店舗名 / 支店</th>
+          <th>地区</th>
+          <th>業態</th>
+          <th>位置</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="adminTableBody"></tbody>
+    </table>
+  </div>
+  <div class="admin-pager" id="adminPager"></div>
+</div>
 
-<footer>v1.5.0 &nbsp;/&nbsp; 2026-06-06</footer>
+<footer>v1.6.0 &nbsp;/&nbsp; 2026-06-06</footer>
+
+<!-- パスワードモーダル -->
+<div id="passwordModal" class="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-title">管理モード</div>
+    <div class="form-group">
+      <label class="form-label">パスワード</label>
+      <input type="password" id="passInput" class="form-input" placeholder="パスワードを入力">
+    </div>
+    <div class="msg-error" id="passError">パスワードが違います</div>
+    <div class="modal-actions">
+      <button class="modal-btn btn-cancel" id="passCancelBtn">キャンセル</button>
+      <button class="modal-btn btn-primary" id="passLoginBtn">ログイン</button>
+    </div>
+  </div>
+</div>
+
+<!-- 店舗追加・編集モーダル -->
+<div id="shopFormModal" class="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-title" id="shopFormTitle">店舗を追加</div>
+    <input type="hidden" id="fId">
+    <div class="form-group">
+      <label class="form-label">店舗名 *</label>
+      <input type="text" id="fName" class="form-input" placeholder="例: マルナカ">
+    </div>
+    <div class="form-group">
+      <label class="form-label">支店名</label>
+      <input type="text" id="fBranch" class="form-input" placeholder="例: 周南店（任意）">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">地区 *</label>
+        <select id="fArea" class="form-select"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">業態 *</label>
+        <select id="fCategory" class="form-select"></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">緯度</label>
+        <input type="number" id="fLat" class="form-input" placeholder="34.05..." step="0.000001">
+      </div>
+      <div class="form-group">
+        <label class="form-label">経度</label>
+        <input type="number" id="fLng" class="form-input" placeholder="131.80..." step="0.000001">
+      </div>
+    </div>
+    <div class="msg-error" id="formError"></div>
+    <div class="modal-actions">
+      <button class="modal-btn btn-cancel" id="formCancelBtn">キャンセル</button>
+      <button class="modal-btn btn-primary" id="formSaveBtn">保存</button>
+    </div>
+  </div>
+</div>
 
 <script>
 
@@ -328,20 +433,19 @@ const CATEGORY_COLORS = {
 };
 
 function esc(str) {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function haversine(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) ** 2
-    + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+  const R = 6371, dLat = (lat2-lat1)*Math.PI/180, dLon = (lon2-lon1)*Math.PI/180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
   return R * 2 * Math.asin(Math.sqrt(a));
 }
 
 let userLat = null, userLng = null, sortByDistance = true;
 let allShops = [];
+
+/* ===== 通常表示 ===== */
 
 function filterShops(shops, keyword, area, category) {
   const kw = keyword.trim().toLowerCase();
@@ -351,11 +455,9 @@ function filterShops(shops, keyword, area, category) {
     if (kw) return (s.name + s.branch).toLowerCase().includes(kw);
     return true;
   });
-
   if (sortByDistance && userLat !== null) {
     result = result.map(s => ({
-      ...s,
-      dist: (s.lat && s.lng) ? haversine(userLat, userLng, s.lat, s.lng) : Infinity
+      ...s, dist: (s.lat && s.lng) ? haversine(userLat, userLng, s.lat, s.lng) : Infinity
     })).sort((a, b) => a.dist - b.dist);
   }
   return result;
@@ -364,12 +466,10 @@ function filterShops(shops, keyword, area, category) {
 function renderCards(shops) {
   const list = document.getElementById('cardList');
   document.getElementById('countDisplay').textContent = shops.length;
-
   if (shops.length === 0) {
     list.innerHTML = '<div class="empty">該当するショップが見つかりません</div>';
     return;
   }
-
   list.innerHTML = shops.map(s => {
     const cat = CATEGORY_COLORS[s.category] || CATEGORY_COLORS['その他'];
     const catBadge  = `<span class="badge" style="background:${cat.bg};color:${cat.color}">${esc(s.category)}</span>`;
@@ -377,7 +477,7 @@ function renderCards(shops) {
     const branchHtml = s.branch ? ` <span class="card-branch">${esc(s.branch)}</span>` : '';
     let distHtml = '';
     if (sortByDistance && s.dist != null && s.dist !== Infinity) {
-      const d = s.dist < 1 ? Math.round(s.dist * 1000) + 'm' : s.dist.toFixed(1) + 'km';
+      const d = s.dist < 1 ? Math.round(s.dist*1000)+'m' : s.dist.toFixed(1)+'km';
       distHtml = `<span class="badge badge-dist">${d}</span>`;
     }
     return `<div class="card">
@@ -403,18 +503,16 @@ function updateSearchIndicator() {
 }
 
 function setStickyOffsets() {
-  const header     = document.querySelector('header');
-  const pdfBar     = document.querySelector('.pdf-link-bar');
-  const searchArea = document.querySelector('.search-area');
-  const summaryBar = document.querySelector('.summary-bar');
-  const h0 = header.offsetHeight;
-  const h1 = pdfBar.offsetHeight;
-  const h2 = searchArea.offsetHeight;
-  pdfBar.style.top     = h0 + 'px';
-  searchArea.style.top = (h0 + h1) + 'px';
-  summaryBar.style.top = (h0 + h1 + h2) + 'px';
+  const h0 = document.querySelector('header').offsetHeight;
+  const h1 = document.querySelector('.pdf-link-bar').offsetHeight;
+  const h2 = document.querySelector('.search-area').offsetHeight;
+  document.querySelector('.pdf-link-bar').style.top = h0 + 'px';
+  document.querySelector('.search-area').style.top  = (h0 + h1) + 'px';
+  const sb = document.getElementById('summaryBar');
+  if (sb) sb.style.top = (h0 + h1 + h2) + 'px';
 }
 
+/* ===== ナビゲーション要素 ===== */
 const btnNear      = document.getElementById('btnNear');
 const btnList      = document.getElementById('btnList');
 const reloadBtn    = document.getElementById('reloadBtn');
@@ -427,70 +525,267 @@ searchToggle.addEventListener('click', () => {
 searchArea.addEventListener('transitionend', setStickyOffsets);
 
 function activateNear() {
-  if (!navigator.geolocation) {
-    alert('この端末では現在地の取得ができません');
-    activateList();
-    return;
-  }
-  btnNear.disabled  = true;
-  btnList.disabled  = true;
-  reloadBtn.disabled = true;
+  if (!navigator.geolocation) { alert('この端末では現在地の取得ができません'); activateList(); return; }
+  btnNear.disabled = btnList.disabled = reloadBtn.disabled = true;
   navigator.geolocation.getCurrentPosition(
     pos => {
-      userLat = pos.coords.latitude;
-      userLng = pos.coords.longitude;
+      userLat = pos.coords.latitude; userLng = pos.coords.longitude;
       sortByDistance = true;
-      btnNear.classList.add('active');
-      btnList.classList.remove('active');
-      btnNear.disabled  = false;
-      btnList.disabled  = false;
-      reloadBtn.disabled = false;
+      btnNear.classList.add('active'); btnList.classList.remove('active');
+      btnNear.disabled = btnList.disabled = false; reloadBtn.disabled = false;
       update();
     },
     () => {
-      btnNear.disabled  = false;
-      btnList.disabled  = false;
-      reloadBtn.disabled = true;
-      alert('現在地の取得に失敗しました');
-      activateList();
+      btnNear.disabled = btnList.disabled = false; reloadBtn.disabled = true;
+      alert('現在地の取得に失敗しました'); activateList();
     },
     { timeout: 10000 }
   );
 }
 
 function activateList() {
-  sortByDistance = false;
-  userLat = null;
-  userLng = null;
-  btnList.classList.add('active');
-  btnNear.classList.remove('active');
-  reloadBtn.disabled = true;
-  update();
+  sortByDistance = false; userLat = userLng = null;
+  btnList.classList.add('active'); btnNear.classList.remove('active');
+  reloadBtn.disabled = true; update();
 }
 
 btnNear.addEventListener('click', activateNear);
 btnList.addEventListener('click', activateList);
 reloadBtn.addEventListener('click', activateNear);
 
-const clearBtn    = document.getElementById('clearBtn');
+const clearBtn = document.getElementById('clearBtn');
 const keywordInput = document.getElementById('keyword');
 keywordInput.addEventListener('input', () => {
   clearBtn.classList.toggle('visible', keywordInput.value.length > 0);
 });
 clearBtn.addEventListener('click', () => {
-  keywordInput.value = '';
-  clearBtn.classList.remove('visible');
-  keywordInput.focus();
-  update();
+  keywordInput.value = ''; clearBtn.classList.remove('visible');
+  keywordInput.focus(); update();
 });
+
+/* ===== 管理パネル ===== */
+
+let adminPass = '';
+let adminAllShops = [];
+let adminFiltered = [];
+let adminPage = 1;
+const ADMIN_PAGE_SIZE = 50;
+
+const KNOWN_AREAS = ['周南地区','下松地区','光地区','熊毛地区'];
+const KNOWN_CATS  = ['小売業','飲食業','建設業','理美容業','サービス業','製造業','その他'];
+
+function checkAdminMode() {
+  if (new URLSearchParams(location.search).has('admin')) {
+    document.getElementById('passwordModal').style.display = 'flex';
+    setTimeout(() => document.getElementById('passInput').focus(), 100);
+  }
+}
+
+document.getElementById('passCancelBtn').addEventListener('click', () => {
+  document.getElementById('passwordModal').style.display = 'none';
+  document.getElementById('passError').style.display = 'none';
+});
+
+document.getElementById('passInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+document.getElementById('passLoginBtn').addEventListener('click', tryLogin);
+
+async function tryLogin() {
+  const pass = document.getElementById('passInput').value;
+  const errEl = document.getElementById('passError');
+  errEl.style.display = 'none';
+  const { data, error } = await sb.rpc('admin_check_pass', { p_pass: pass });
+  if (error || !data) { errEl.style.display = 'block'; return; }
+  adminPass = pass;
+  document.getElementById('passwordModal').style.display = 'none';
+  document.getElementById('passInput').value = '';
+  enterAdminMode();
+}
+
+function enterAdminMode() {
+  document.getElementById('normalView').style.display = 'none';
+  document.getElementById('adminView').style.display = 'block';
+  loadAdminShops();
+}
+
+document.getElementById('adminExitBtn').addEventListener('click', () => {
+  document.getElementById('adminView').style.display = 'none';
+  document.getElementById('normalView').style.display = 'block';
+  adminPass = '';
+});
+
+async function loadAdminShops() {
+  document.getElementById('adminTableBody').innerHTML =
+    '<tr><td colspan="6" style="text-align:center;padding:24px;color:#9CA3AF">読み込み中...</td></tr>';
+  const { data, error } = await sb.from('shops')
+    .select('id, area, category, name, branch, latitude, longitude')
+    .order('id');
+  if (error || !data) {
+    document.getElementById('adminTableBody').innerHTML =
+      '<tr><td colspan="6" style="text-align:center;padding:24px;color:#C53030">読み込み失敗</td></tr>';
+    return;
+  }
+  adminAllShops = data;
+  adminPage = 1;
+  applyAdminFilter();
+}
+
+function applyAdminFilter() {
+  const kw = document.getElementById('adminSearch').value.trim().toLowerCase();
+  adminFiltered = kw
+    ? adminAllShops.filter(s => String(s.id).includes(kw) || (s.name+s.branch).toLowerCase().includes(kw))
+    : adminAllShops.slice();
+  document.getElementById('adminCount').textContent = adminFiltered.length + ' 件';
+  renderAdminTable();
+  renderAdminPager();
+}
+
+document.getElementById('adminSearch').addEventListener('input', () => {
+  adminPage = 1; applyAdminFilter();
+});
+
+function renderAdminTable() {
+  const start = (adminPage - 1) * ADMIN_PAGE_SIZE;
+  const rows  = adminFiltered.slice(start, start + ADMIN_PAGE_SIZE);
+  document.getElementById('adminTableBody').innerHTML = rows.length === 0
+    ? '<tr><td colspan="6" style="text-align:center;padding:24px;color:#9CA3AF">該当なし</td></tr>'
+    : rows.map(s => {
+        const hasLoc = s.latitude && s.longitude;
+        return `<tr>
+  <td style="color:#9CA3AF;font-size:11px">${s.id}</td>
+  <td><div class="td-name">${esc(s.name)}</div>${s.branch ? `<div class="td-branch">${esc(s.branch)}</div>` : ''}</td>
+  <td>${esc(s.area)}</td>
+  <td>${esc(s.category)}</td>
+  <td class="td-loc">${hasLoc ? '✓' : '—'}</td>
+  <td style="white-space:nowrap">
+    <button class="action-btn edit-btn" onclick="showShopForm(${s.id})">編集</button>
+    <button class="action-btn del-btn"  onclick="confirmDelete(${s.id},'${esc(s.name)}')">削除</button>
+  </td>
+</tr>`;
+      }).join('');
+}
+
+function renderAdminPager() {
+  const total = Math.ceil(adminFiltered.length / ADMIN_PAGE_SIZE);
+  const pager = document.getElementById('adminPager');
+  if (total <= 1) { pager.innerHTML = ''; return; }
+  let html = '';
+  for (let i = 1; i <= total; i++) {
+    html += `<button class="page-btn${i === adminPage ? ' active' : ''}" onclick="goAdminPage(${i})">${i}</button>`;
+  }
+  pager.innerHTML = html;
+}
+
+function goAdminPage(p) { adminPage = p; renderAdminTable(); renderAdminPager(); window.scrollTo(0,0); }
+
+/* 追加・編集フォーム */
+
+function buildSelectOptions(sel, values, current) {
+  sel.innerHTML = values.map(v => `<option value="${esc(v)}"${v===current?' selected':''}>${esc(v)}</option>`).join('');
+}
+
+function showShopForm(id) {
+  const shop = id ? adminAllShops.find(s => s.id === id) : null;
+  document.getElementById('shopFormTitle').textContent = shop ? '店舗を編集' : '店舗を追加';
+  document.getElementById('fId').value     = shop ? shop.id : '';
+  document.getElementById('fName').value   = shop ? shop.name   : '';
+  document.getElementById('fBranch').value = shop ? (shop.branch || '') : '';
+  document.getElementById('fLat').value    = shop ? (shop.latitude  ?? '') : '';
+  document.getElementById('fLng').value    = shop ? (shop.longitude ?? '') : '';
+  const areas = [...new Set(adminAllShops.map(s=>s.area))].filter(Boolean);
+  const cats  = [...new Set(adminAllShops.map(s=>s.category))].filter(Boolean);
+  buildSelectOptions(document.getElementById('fArea'),     areas.length ? areas : KNOWN_AREAS, shop?.area     || '');
+  buildSelectOptions(document.getElementById('fCategory'), cats.length  ? cats  : KNOWN_CATS,  shop?.category || '');
+  document.getElementById('formError').style.display = 'none';
+  document.getElementById('shopFormModal').style.display = 'flex';
+}
+
+document.getElementById('formCancelBtn').addEventListener('click', () => {
+  document.getElementById('shopFormModal').style.display = 'none';
+});
+
+document.getElementById('formSaveBtn').addEventListener('click', saveShop);
+
+async function saveShop() {
+  const id      = document.getElementById('fId').value;
+  const name    = document.getElementById('fName').value.trim();
+  const branch  = document.getElementById('fBranch').value.trim();
+  const area    = document.getElementById('fArea').value;
+  const category= document.getElementById('fCategory').value;
+  const lat     = parseFloat(document.getElementById('fLat').value) || null;
+  const lng     = parseFloat(document.getElementById('fLng').value) || null;
+  const errEl   = document.getElementById('formError');
+
+  if (!name) { errEl.textContent = '店舗名は必須です'; errEl.style.display = 'block'; return; }
+
+  const saveBtn = document.getElementById('formSaveBtn');
+  saveBtn.disabled = true; saveBtn.textContent = '保存中...';
+  errEl.style.display = 'none';
+
+  let error;
+  if (id) {
+    const res = await sb.rpc('admin_update_shop', {
+      p_pass: adminPass, p_id: parseInt(id),
+      p_area: area, p_category: category, p_name: name,
+      p_branch: branch, p_latitude: lat, p_longitude: lng
+    });
+    error = res.error;
+  } else {
+    const res = await sb.rpc('admin_insert_shop', {
+      p_pass: adminPass,
+      p_area: area, p_category: category, p_name: name,
+      p_branch: branch, p_latitude: lat, p_longitude: lng
+    });
+    error = res.error;
+  }
+
+  saveBtn.disabled = false; saveBtn.textContent = '保存';
+  if (error) {
+    errEl.textContent = '保存に失敗しました: ' + error.message;
+    errEl.style.display = 'block';
+    return;
+  }
+  document.getElementById('shopFormModal').style.display = 'none';
+  await loadAdminShops();
+  await reloadPublicShops();
+}
+
+/* 削除 */
+function confirmDelete(id, name) {
+  if (!confirm(`「${name}」を削除してよいですか？\nこの操作は取り消せません。`)) return;
+  doDelete(id);
+}
+
+async function doDelete(id) {
+  const { error } = await sb.rpc('admin_delete_shop', { p_pass: adminPass, p_id: id });
+  if (error) { alert('削除に失敗しました: ' + error.message); return; }
+  await loadAdminShops();
+  await reloadPublicShops();
+}
+
+/* 公開データ再読み込み */
+async function reloadPublicShops() {
+  const { data } = await sb.from('shops')
+    .select('area, category, name, branch, latitude, longitude').order('id');
+  if (!data) return;
+  allShops = data.map(s => ({
+    area: s.area, category: s.category,
+    name: s.name, branch: s.branch || '',
+    lat: s.latitude, lng: s.longitude,
+  }));
+  update();
+}
+
+/* ===== 初期化 ===== */
+document.getElementById('adminAddBtn').addEventListener('click', () => showShopForm(null));
 
 (async () => {
   document.getElementById('cardList').innerHTML = '<div class="empty">読み込み中...</div>';
 
   const { data, error } = await sb
-    .from('shops')
-    .select('area, category, name, branch, latitude, longitude')
-    .order('id');
+    .from('shops').select('area, category, name, branch, latitude, longitude').order('id');
 
   if (error || !data) {
     document.getElementById('cardList').innerHTML = '<div class="empty">データの読み込みに失敗しました</div>';
@@ -498,12 +793,9 @@ clearBtn.addEventListener('click', () => {
   }
 
   allShops = data.map(s => ({
-    area:     s.area,
-    category: s.category,
-    name:     s.name,
-    branch:   s.branch || '',
-    lat:      s.latitude,
-    lng:      s.longitude,
+    area: s.area, category: s.category,
+    name: s.name, branch: s.branch || '',
+    lat: s.latitude, lng: s.longitude,
   }));
 
   function populateSelect(id, key) {
@@ -511,8 +803,7 @@ clearBtn.addEventListener('click', () => {
     const values = [...new Set(allShops.map(s => s[key]))].filter(Boolean);
     values.forEach(v => {
       const opt = document.createElement('option');
-      opt.value = v;
-      opt.textContent = v;
+      opt.value = opt.textContent = v;
       sel.appendChild(opt);
     });
   }
@@ -520,7 +811,6 @@ clearBtn.addEventListener('click', () => {
   populateSelect('categoryFilter', 'category');
 
   document.getElementById('totalDisplay').textContent = '（全 ' + allShops.length + ' 件）';
-
   document.getElementById('keyword').addEventListener('input', update);
   document.getElementById('areaFilter').addEventListener('change', update);
   document.getElementById('categoryFilter').addEventListener('change', update);
@@ -528,6 +818,7 @@ clearBtn.addEventListener('click', () => {
   setStickyOffsets();
   window.addEventListener('resize', setStickyOffsets);
   activateNear();
+  checkAdminMode();
 })();
 </script>
 </body>
